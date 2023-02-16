@@ -9,11 +9,13 @@ namespace CircusTrein
     public class Train
     {
 
-      
-        private List<Wagon> Wagons { get { return Wagons; } }
-  
 
-        
+        private List<Wagon> _wagons = new List<Wagon>();
+        private List<Wagon> Wagons { get { return _wagons; } }
+
+
+
+
         public List<Wagon> getWagons()
         {
             return Wagons;
@@ -21,7 +23,9 @@ namespace CircusTrein
 
         public void tryAddAnimalToTrain(List<Animal> animals)
         {
-            foreach (Animal animal in animals)
+       
+            
+            foreach (Animal animal in sortAnimals(animals))
             {
                 bool added = false;
                 foreach (Wagon wagon in Wagons)
@@ -44,9 +48,24 @@ namespace CircusTrein
          
         }
 
+        public List<Animal> sortAnimals(List<Animal> animals)
+        {
+            
+
+            // Sort animals by size
+            animals.Sort((a1, a2) => a2.getSize().CompareTo(a1.getSize()));
+
+            // Sort animals by diet
+            animals.Sort((a1, a2) => a2.getDiet().CompareTo(a1.getDiet()));
+
+            return animals;
 
 
-        public void AddWagon(Animal animal)
+        }
+
+
+
+    public void AddWagon(Animal animal)
         {
             Wagon w = new();
             w.tryAddToWagon(animal);
