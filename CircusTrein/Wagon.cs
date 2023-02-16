@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,88 +10,65 @@ namespace CircusTrein
     public class Wagon
     {
         //fields
-        private int wagonNumber = 0;
         private int wagonSize = 10;
-        private List<Animal> animalInWagon = new List<Animal>();
+        private readonly List<Animal> animalInWagonList = new();
 
         //properties
-        public int WagonNumber { get { return wagonNumber; } set { } }
         public int WagonSize { get { return wagonSize; } set { } }
-        public List<Animal> AnimalInWagon { get { return animalInWagon; } set { } }
+        public List<Animal> AnimalInWagonList { get { return animalInWagonList; } set { } }
 
 
 
-        public Wagon(int wagonSize)
-        {
-            this.wagonSize = wagonSize;
 
-        }
-
-
-
-        public bool addAnimal(Animal animal)
+        public bool tryAddToWagon(Animal animal)
         {
 
-
-
-            if (checkCapacity(animal))
+            if (!checkCapacity(animal))
             {
-
-
-
-                if (animalInWagon.Count == 0)
-                {
-                    animalInWagon.Add(animal);
-                    wagonSize -= (int)animal.AnimalSizePublic;
-                    return true;
-
-                }
-                else
-                {
-
-                    foreach (Animal checkAnimal in this.animalInWagon)
-                    {
-
-                        if (checkAnimal.AnimalSizePublic! <= animal.AnimalSizePublic && animal.AnimalTypePublic != Animal.AnimalType.Carnivore || checkAnimal.AnimalTypePublic != Animal.AnimalType.Carnivore && checkAnimal.AnimalSizePublic! >= animal.AnimalSizePublic)
-                        {
-                            animalInWagon.Add(animal);
-                            wagonSize -= (int)animal.AnimalSizePublic;
-                            return true;
-                        }
-                    }
-                    return false;
-                }
+                return false;
             }
-            else { return false; }
 
-       
+            if (animalInWagonList.Count == 0)
+            {
+                animalInWagonList.Add(animal);
+                wagonSize -= (int)animal.getSize();
+                return true;
+            }
+            else
+            {
+                foreach (Animal animalInWagon in this.animalInWagonList)
+                {
 
+                    if (animalInWagon.getSize()! < animal.getSize() &&
+                        animal.getDiet() != Animal.Diet.Carnivore ||
+                        animalInWagon.getDiet() != Animal.Diet.Carnivore &&
+                        animalInWagon.getSize()! >= animal.getSize())
+                    {
+                        animalInWagonList.Add(animal);
+                        wagonSize -= (int)animal.getSize();
+                        return true;
+                    }
+                }
+                return false;
+
+            }
         }
 
 
         public bool checkCapacity(Animal animal)
         {
-            if (this.WagonSize - animal.AnimalSizePublic >= 0)
-            {
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-
+            bool canFit = WagonSize - animal.getSize() >= 0 ? true : false;
+            return canFit;
         }
 
 
     }
 }
 
-        
 
 
-    
+
+
 
 
 

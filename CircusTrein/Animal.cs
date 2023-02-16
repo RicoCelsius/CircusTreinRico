@@ -12,48 +12,30 @@ namespace CircusTrein
 
     public class Animal
     {
-        public enum AnimalType { Carnivore, Herbivore }
-        private AnimalType animalType;
-        public AnimalType AnimalTypePublic { get { return animalType; } }
+        public enum Diet { Carnivore, Herbivore }
+        public enum Size { Big = 5, Medium = 3, Small = 1 }
 
-        public enum AnimalName {Hond,Leeuw,Olifant,Cavia}
-        private AnimalName animalName;
-        public AnimalName AnimalNamePublic { get { return animalName; } }
 
-       
-        public enum AnimalSize { Big = 5, Medium = 3, Small = 1 }
-        private AnimalSize animalSize;
-        public AnimalSize AnimalSizePublic { get { return animalSize; } }  
 
-     
 
-       
 
-        
+        private Diet _diet;
+        private Size _size;
 
-        public Animal(AnimalName animalName, AnimalSize animalSize)
+        public Diet getDiet()
         {
-            this.animalName = animalName;
-            this.animalSize = animalSize;
-
-            if(animalName == AnimalName.Hond || animalName == AnimalName.Leeuw)
-            {
-                this.animalType = AnimalType.Carnivore;
-            }
-            else
-            {
-                this.animalType = AnimalType.Herbivore;
-            }
-    
-            
-           
-
-            
+            return _diet;
         }
 
+        public Size getSize()
+        {
+            return _size;
+        }
 
-
-
-
+        public Animal(Diet animalDiet, Size animalSize)
+        {
+            this._diet = animalDiet;
+            this._size = animalSize;
+        }
     }
 }
