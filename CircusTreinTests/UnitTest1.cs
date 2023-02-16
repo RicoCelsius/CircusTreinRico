@@ -18,24 +18,10 @@ namespace CircusTreinTests
         {
             List<Animal> animals = new List<Animal>();
 
-            for (int i = 0; i < smallHerbi; i++)
-            {
-                animals.Add(smallHerbiObj);
-            }
 
-            for (int i = 0; i < mediumHerbi; i++)
+            for (int i = 0; i < bigCarni; i++)
             {
-                animals.Add(mediumHerbiObj);
-            }
-
-            for (int i = 0; i < bigHerbi; i++)
-            {
-                animals.Add(bigHerbiObj);
-            }
-
-            for (int i = 0; i < smallCarni; i++)
-            {
-                animals.Add(smallCarniObj);
+                animals.Add(bigCarniObj);
             }
 
             for (int i = 0; i < mediumCarni; i++)
@@ -43,10 +29,36 @@ namespace CircusTreinTests
                 animals.Add(mediumCarniObj);
             }
 
-            for (int i = 0; i < bigCarni; i++)
+
+
+            for (int i = 0; i < smallCarni; i++)
             {
-                animals.Add(bigCarniObj);
+                animals.Add(smallCarniObj);
             }
+
+            for (int i = 0; i < bigHerbi; i++)
+            {
+                animals.Add(bigHerbiObj);
+            }
+
+            for (int i = 0; i < mediumHerbi; i++)
+            {
+                animals.Add(mediumHerbiObj);
+            }
+
+            for (int i = 0; i < smallHerbi; i++)
+            {
+                animals.Add(smallHerbiObj);
+            }
+
+
+
+
+
+
+
+
+
 
             return animals;
         }
@@ -79,5 +91,20 @@ namespace CircusTreinTests
             // Assert
             Assert.Equal(expectedWagonCount, train.getWagons().Count);
         }
+
+        [Theory]
+        [InlineData(Animal.Diet.Carnivore, Animal.Size.Medium, Animal.Diet.Herbivore, Animal.Size.Small,true)]
+        [InlineData(Animal.Diet.Carnivore, Animal.Size.Small, Animal.Diet.Herbivore, Animal.Size.Medium, false)]
+        [InlineData(Animal.Diet.Herbivore, Animal.Size.Big, Animal.Diet.Carnivore, Animal.Size.Small, false)]
+        public void TestEatAnimal(Animal.Diet sourceDiet, Animal.Size sourceSize, Animal.Diet targetDiet, Animal.Size targetSize, bool expected)
+        {
+            Animal source = new Animal(sourceDiet, sourceSize);
+            Animal target = new Animal(targetDiet, targetSize);
+
+            bool canItEat = source.canEatOtherAnimal(target);
+
+            Assert.Equal(canItEat, expected);
+        }
+
     }
 }

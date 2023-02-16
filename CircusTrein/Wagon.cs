@@ -39,18 +39,17 @@ namespace CircusTrein
             {
                 foreach (Animal animalInWagon in this.animalInWagonList)
                 {
-
-                    if (animalInWagon.getSize()! < animal.getSize() &&
-                        animal.getDiet() != Animal.Diet.Carnivore ||
-                        animalInWagon.getDiet() != Animal.Diet.Carnivore &&
-                        animalInWagon.getSize()! >= animal.getSize())
+                    if (animal.canEatOtherAnimal(animalInWagon))
                     {
-                        animalInWagonList.Add(animal);
-                        wagonSize -= (int)animal.getSize();
-                        return true;
+                        return false;
+                       
                     }
                 }
-                return false;
+
+                animalInWagonList.Add(animal);
+                wagonSize -= (int)animal.getSize();
+                return true;
+              
 
             }
         }

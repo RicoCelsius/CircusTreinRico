@@ -37,5 +37,23 @@ namespace CircusTrein
             this._diet = animalDiet;
             this._size = animalSize;
         }
+
+        public bool canEatOtherAnimal(Animal target)
+        {
+            if(this.getDiet() == Animal.Diet.Carnivore && target.getSize() <= this.getSize())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool willBeEaten(Animal target)
+        {
+            if(target.getSize() <= this.getSize() && this.getDiet() == Animal.Diet.Carnivore)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

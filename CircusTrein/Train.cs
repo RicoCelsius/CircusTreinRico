@@ -25,7 +25,7 @@ namespace CircusTrein
         {
        
             
-            foreach (Animal animal in sortAnimals(animals))
+            foreach (Animal animal in animals)
             {
                 bool added = false;
                 foreach (Wagon wagon in Wagons)
@@ -48,24 +48,10 @@ namespace CircusTrein
          
         }
 
-        public List<Animal> sortAnimals(List<Animal> animals)
-        {
-            
-
-            // Sort animals by size
-            animals.Sort((a1, a2) => a2.getSize().CompareTo(a1.getSize()));
-
-            // Sort animals by diet
-            animals.Sort((a1, a2) => a2.getDiet().CompareTo(a1.getDiet()));
-
-            return animals;
-
-
-        }
 
 
 
-    public void AddWagon(Animal animal)
+        public void AddWagon(Animal animal)
         {
             Wagon w = new();
             w.tryAddToWagon(animal);
