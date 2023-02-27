@@ -11,14 +11,13 @@ namespace CircusTrein
     public class Wagon
     {
         //fields
-        private int wagonSize = 10;
+        
         private readonly List<Animal> animalInWagonList = new();
+        private int _wagonSize = 10;
 
         //properties
-        public int WagonSize { get { return wagonSize; } set { } }
-        public List<Animal> AnimalInWagonList { get { return animalInWagonList; } set { } }
-
-
+        public int WagonSize { get { return _wagonSize; } }
+        public IReadOnlyList<Animal> AnimalInWagonList { get { return animalInWagonList; } }
 
 
         public bool tryAddToWagon(Animal animal)
@@ -29,25 +28,19 @@ namespace CircusTrein
                 return false;
             }
 
-            if (animalInWagonList.Count == 0)
-            {
-                animalInWagonList.Add(animal);
-                wagonSize -= (int)animal.getSize();
-                return true;
-            }
             else
             {
                 foreach (Animal animalInWagon in this.animalInWagonList)
                 {
-                    if (animal.canEatOtherAnimal(animalInWagon))
+                    if (animal.canEatOtherAnimal(animalInWagon) || animal.willBeEaten(animalInWagon))
                     {
                         return false;
                        
                     }
                 }
-
+                
                 animalInWagonList.Add(animal);
-                wagonSize -= (int)animal.getSize();
+                _wagonSize -= (int)animal.currentSize;
                 return true;
               
 
@@ -57,7 +50,7 @@ namespace CircusTrein
 
         public bool checkCapacity(Animal animal)
         {
-            bool canFit = WagonSize - animal.getSize() >= 0 ? true : false;
+            bool canFit = WagonSize - animal.currentSize >= 0 ? true : false;
             return canFit;
         }
 

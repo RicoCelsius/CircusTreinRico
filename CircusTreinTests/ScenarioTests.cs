@@ -4,14 +4,18 @@ using Xunit;
 
 namespace CircusTreinTests
 {
+
     public class TrainTests
     {
-        private readonly Animal smallHerbiObj = new Animal(Animal.Diet.Herbivore, Animal.Size.Small);
-        private readonly Animal mediumHerbiObj = new Animal(Animal.Diet.Herbivore, Animal.Size.Medium);
-        private readonly Animal bigHerbiObj = new Animal(Animal.Diet.Herbivore, Animal.Size.Big);
-        private readonly Animal smallCarniObj = new Animal(Animal.Diet.Carnivore, Animal.Size.Small);
-        private readonly Animal mediumCarniObj = new Animal(Animal.Diet.Carnivore, Animal.Size.Medium);
-        private readonly Animal bigCarniObj = new Animal(Animal.Diet.Carnivore, Animal.Size.Big);
+
+
+        private readonly Herbivore smallHerbiObj = new Herbivore(Animal.Size.Small);
+        private readonly Herbivore mediumHerbiObj = new Herbivore(Animal.Size.Medium);
+        private readonly Herbivore bigHerbiObj = new Herbivore(Animal.Size.Big);
+        private readonly Carnivore smallCarniObj = new Carnivore(Animal.Size.Small);
+        private readonly Carnivore mediumCarniObj = new Carnivore(Animal.Size.Medium);
+        private readonly Carnivore bigCarniObj = new Carnivore(Animal.Size.Big);
+
 
 
         private List<Animal> CreateScenario(int smallHerbi, int mediumHerbi, int bigHerbi, int smallCarni, int mediumCarni, int bigCarni)
@@ -30,20 +34,9 @@ namespace CircusTreinTests
             }
 
 
-
-            for (int i = 0; i < smallCarni; i++)
-            {
-                animals.Add(smallCarniObj);
-            }
-
             for (int i = 0; i < bigHerbi; i++)
             {
                 animals.Add(bigHerbiObj);
-            }
-
-            for (int i = 0; i < mediumHerbi; i++)
-            {
-                animals.Add(mediumHerbiObj);
             }
 
             for (int i = 0; i < smallHerbi; i++)
@@ -51,15 +44,15 @@ namespace CircusTreinTests
                 animals.Add(smallHerbiObj);
             }
 
+            for (int i = 0; i < mediumHerbi; i++)
+            {
+                animals.Add(mediumHerbiObj);
+            }
 
-
-
-
-
-
-
-
-
+            for (int i = 0; i < smallCarni; i++)
+            {
+                animals.Add(smallCarniObj);
+            }
             return animals;
         }
 
@@ -89,22 +82,28 @@ namespace CircusTreinTests
             train.tryAddAnimalToTrain(animals);
 
             // Assert
-            Assert.Equal(expectedWagonCount, train.getWagons().Count);
+            Assert.Equal(expectedWagonCount, train.Wagons.Count);
         }
-
+        
         [Theory]
-        [InlineData(Animal.Diet.Carnivore, Animal.Size.Medium, Animal.Diet.Herbivore, Animal.Size.Small,true)]
-        [InlineData(Animal.Diet.Carnivore, Animal.Size.Small, Animal.Diet.Herbivore, Animal.Size.Medium, false)]
-        [InlineData(Animal.Diet.Herbivore, Animal.Size.Big, Animal.Diet.Carnivore, Animal.Size.Small, false)]
-        public void TestEatAnimal(Animal.Diet sourceDiet, Animal.Size sourceSize, Animal.Diet targetDiet, Animal.Size targetSize, bool expected)
+
+        [InlineData(false, Animal.Size.Small, Animal.Size.Medium)]
+        [InlineData(true, Animal.Size.Big, Animal.Size.Medium)]
+        [InlineData(true, Animal.Size.Big, Animal.Size.Big)]
+
+        public void TestEatAnimal(bool expected, Animal.Size carniSize, Animal.Size herbiSize)
         {
-            Animal source = new Animal(sourceDiet, sourceSize);
-            Animal target = new Animal(targetDiet, targetSize);
+            // Arrange
+            Carnivore carni = new Carnivore(carniSize);
+            Herbivore herbi = new Herbivore(herbiSize);
 
-            bool canItEat = source.canEatOtherAnimal(target);
+            // Act
+            bool canItEat = carni.canEatOtherAnimal(herbi);
 
-            Assert.Equal(canItEat, expected);
+            // Assert
+            Assert.Equal(expected, canItEat);
         }
+
 
     }
 }

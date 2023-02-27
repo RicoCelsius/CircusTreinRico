@@ -8,22 +8,16 @@ namespace CircusTrein
 {
     public class Train
     {
-
-
-        private List<Wagon> _wagons = new List<Wagon>();
-        private List<Wagon> Wagons { get { return _wagons; } }
+        public List<Wagon> Wagons = new List<Wagon>();
 
 
 
 
-        public List<Wagon> getWagons()
-        {
-            return Wagons;
-        }
+
 
         public void tryAddAnimalToTrain(List<Animal> animals)
         {
-       
+            animals = sortAnimals(animals);
             
             foreach (Animal animal in animals)
             {
@@ -40,7 +34,7 @@ namespace CircusTrein
                 if (!added)
                 {
                     AddWagon(animal);
-                    added = true;
+                    
                 }
 
                
@@ -48,7 +42,22 @@ namespace CircusTrein
          
         }
 
+        public List<Animal> sortAnimals(List<Animal> unsortedAnimals)
+        {
+            List<Animal> sortedCarnivores = unsortedAnimals
+                .Where(a => a is Carnivore) // Alleen carnivoren selecteren
+                .OrderByDescending(a => ((Carnivore)a).currentSize) // Sorteren op grootte
+                .ToList();
 
+            List<Animal> sortedHerbivores = unsortedAnimals
+                .Where(a => a is Herbivore) // Alleen herbivoren selecteren
+                .OrderByDescending(a => ((Herbivore)a).currentSize) // Sorteren op grootte
+                .ToList();
+
+            List<Animal> sortedAnimals = sortedCarnivores.Concat(sortedHerbivores).ToList();
+
+            return sortedAnimals;
+        }
 
 
         public void AddWagon(Animal animal)

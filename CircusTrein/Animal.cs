@@ -10,50 +10,31 @@ namespace CircusTrein
 {
 
 
-    public class Animal
+    public abstract class Animal
     {
-        public enum Diet { Carnivore, Herbivore }
+       
         public enum Size { Big = 5, Medium = 3, Small = 1 }
+        public Size currentSize { get; set; }
 
 
 
 
-
-        private Diet _diet;
-        private Size _size;
-
-        public Diet getDiet()
+        public Animal(Size animalSize)
         {
-            return _diet;
+            this.currentSize = animalSize;
         }
 
-        public Size getSize()
-        {
-            return _size;
-        }
+        abstract public bool canEatOtherAnimal(Animal animalInWagon);
 
-        public Animal(Diet animalDiet, Size animalSize)
-        {
-            this._diet = animalDiet;
-            this._size = animalSize;
-        }
 
-        public bool canEatOtherAnimal(Animal target)
+        public bool willBeEaten(Animal animalInWagon)
         {
-            if(this.getDiet() == Animal.Diet.Carnivore && target.getSize() <= this.getSize())
+            if (animalInWagon.canEatOtherAnimal(this))
             {
                 return true;
             }
             return false;
         }
 
-        public bool willBeEaten(Animal target)
-        {
-            if(target.getSize() <= this.getSize() && this.getDiet() == Animal.Diet.Carnivore)
-            {
-                return true;
-            }
-            return false;
-        }
     }
 }

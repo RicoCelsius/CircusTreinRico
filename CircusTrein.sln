@@ -5,9 +5,7 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircusTrein", "CircusTrein\CircusTrein.csproj", "{CC033B04-C965-467B-A71E-0F3AFD61AF0A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "TestProject1\UnitTests.csproj", "{D77B6510-5769-4A77-8028-8F736D34A2C3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircusTreinTests", "CircusTreinTests\CircusTreinTests.csproj", "{CE0A826E-26F2-43A0-AFC7-1C24A94F5E3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircusTreinTests", "CircusTreinTests\CircusTreinTests.csproj", "{CE0A826E-26F2-43A0-AFC7-1C24A94F5E3D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CC033B04-C965-467B-A71E-0F3AFD61AF0A} = {CC033B04-C965-467B-A71E-0F3AFD61AF0A}
 	EndProjectSection
@@ -22,10 +20,6 @@ Global
 		{CC033B04-C965-467B-A71E-0F3AFD61AF0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC033B04-C965-467B-A71E-0F3AFD61AF0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC033B04-C965-467B-A71E-0F3AFD61AF0A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D77B6510-5769-4A77-8028-8F736D34A2C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D77B6510-5769-4A77-8028-8F736D34A2C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D77B6510-5769-4A77-8028-8F736D34A2C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D77B6510-5769-4A77-8028-8F736D34A2C3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CE0A826E-26F2-43A0-AFC7-1C24A94F5E3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CE0A826E-26F2-43A0-AFC7-1C24A94F5E3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE0A826E-26F2-43A0-AFC7-1C24A94F5E3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
