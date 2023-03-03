@@ -12,9 +12,8 @@ namespace CircusTrein
 
     public abstract class Animal
     {
-       
         public enum Size { Big = 5, Medium = 3, Small = 1 }
-        public Size currentSize { get; set; }
+        public Size currentSize { get; }
 
 
 

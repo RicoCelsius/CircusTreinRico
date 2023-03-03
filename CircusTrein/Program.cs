@@ -5,3 +5,7 @@
 using CircusTrein;
 
 Train t = new();
+
+Wagon w = new Wagon();
+
+

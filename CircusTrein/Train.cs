@@ -8,21 +8,24 @@ namespace CircusTrein
 {
     public class Train
     {
-        public List<Wagon> Wagons = new List<Wagon>();
+
+        private List<Wagon> wagons = new();
 
 
+        public IReadOnlyList<Wagon> GetWagons()
+        {
+            return wagons.AsReadOnly();
+        }
 
 
-
-
-        public void tryAddAnimalToTrain(List<Animal> animals)
+        public void AddAnimalToTrain(List<Animal> animals)
         {
             animals = sortAnimals(animals);
             
             foreach (Animal animal in animals)
             {
                 bool added = false;
-                foreach (Wagon wagon in Wagons)
+                foreach (Wagon wagon in wagons)
                 {
                     if (wagon.tryAddToWagon(animal))
                     {
@@ -30,42 +33,34 @@ namespace CircusTrein
                         break;
                     }
                 }
-
                 if (!added)
                 {
-                    AddWagon(animal);
-                    
+                    addNewWagon(animal);
                 }
-
-               
             }
-         
         }
-
-        public List<Animal> sortAnimals(List<Animal> unsortedAnimals)
+        private List<Animal> sortAnimals(List<Animal> unsortedAnimals)
         {
-            List<Animal> sortedCarnivores = unsortedAnimals
-                .Where(a => a is Carnivore) // Alleen carnivoren selecteren
-                .OrderByDescending(a => ((Carnivore)a).currentSize) // Sorteren op grootte
+            List<Animal> sortedAnimals = unsortedAnimals
+                .OrderByDescending(a => a is Carnivore) // Sort carnivores 
+                .ThenByDescending(a => a is Herbivore) // Sort herbivores
+                .ThenByDescending(a => a.currentSize) //Sort on size.
                 .ToList();
-
-            List<Animal> sortedHerbivores = unsortedAnimals
-                .Where(a => a is Herbivore) // Alleen herbivoren selecteren
-                .OrderByDescending(a => ((Herbivore)a).currentSize) // Sorteren op grootte
-                .ToList();
-
-            List<Animal> sortedAnimals = sortedCarnivores.Concat(sortedHerbivores).ToList();
 
             return sortedAnimals;
         }
 
 
-        public void AddWagon(Animal animal)
+
+        private void addNewWagon(Animal animal)
         {
-            Wagon w = new();
-            w.tryAddToWagon(animal);
-            Wagons.Add(w);
-        }
+            Wagon newWagon = new();
+            newWagon.addAnimalToWagon(animal);
+            wagons.Add(newWagon);
+            if (!wagons.Contains(newWagon)){
+                throw new InvalidOperationException("Unable to add wagon to list of wagons.");
+            }
+;        }
 
     }
 }

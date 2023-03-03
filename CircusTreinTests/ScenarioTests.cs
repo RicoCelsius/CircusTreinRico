@@ -79,10 +79,10 @@ namespace CircusTreinTests
             List<Animal> animals = CreateScenario(smallHerbi,mediumHerbi,bigHerbi,smallCarni,mediumCarni,bigCarni);
 
             // Act
-            train.tryAddAnimalToTrain(animals);
+            train.AddAnimalToTrain(animals);
 
             // Assert
-            Assert.Equal(expectedWagonCount, train.Wagons.Count);
+            Assert.Equal(expectedWagonCount, train.GetWagons().Count);
         }
         
         [Theory]

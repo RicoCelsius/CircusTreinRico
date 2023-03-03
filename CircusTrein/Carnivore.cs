@@ -8,7 +8,6 @@ namespace CircusTrein
 {
     public class Carnivore : Animal
 
-
     {
 
 
@@ -24,7 +23,5 @@ namespace CircusTrein
             }
             return false;
         }
-
-
     }
 }
